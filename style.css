@@ -6,7 +6,7 @@
 
 body {
     font-family: 'Arial', sans-serif;
-    background: #ffffff; /* Changed to white background */
+    background: #f5f5f5;
     min-height: 100vh;
     display: flex;
     justify-content: center;
@@ -19,8 +19,9 @@ body {
     height: 600px;
     position: relative;
     overflow: hidden;
-    border: 2px solid #ddd; /* Added border for visibility on white background */
-    border-radius: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background: white;
 }
 
 .screen {
@@ -40,67 +41,68 @@ body {
     display: flex;
 }
 
-/* Card Styling */
+/* Card Styling - lebih sederhana */
 .card {
-    background: rgba(255, 255, 255, 0.95);
-    padding: 40px;
-    border-radius: 20px;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    border: 3px solid #ffd700;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e0e0e0;
 }
 
 .card h1 {
-    color: #1a2a6c;
+    color: #333;
     margin-bottom: 15px;
-    font-size: 2.5em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.card h2 {
-    color: #b21f1f;
-    margin-bottom: 20px;
     font-size: 2em;
 }
 
-/* Button Styling */
+.card h2 {
+    color: #444;
+    margin-bottom: 20px;
+    font-size: 1.8em;
+}
+
+/* Button Styling - lebih sederhana */
 .btn-primary {
-    background: linear-gradient(45deg, #1a2a6c, #b21f1f);
-    color: white;
-    border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    border-radius: 50px;
-    cursor: pointer;
-    margin: 10px;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-}
-
-.btn-primary:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
-}
-
-.btn-secondary {
-    background: #666;
+    background: #4a5568;
     color: white;
     border: none;
     padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 6px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background: #2d3748;
+}
+
+.btn-secondary {
+    background: #718096;
+    color: white;
+    border: none;
+    padding: 10px 20px;
     font-size: 1em;
-    border-radius: 50px;
+    border-radius: 6px;
     cursor: pointer;
     margin: 5px;
-    transition: all 0.3s ease;
+    transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+    background: #4a5568;
 }
 
 .btn-icon {
-    background: rgba(255, 255, 255, 0.9);
-    border: none;
-    padding: 10px;
-    border-radius: 50%;
+    background: #e2e8f0;
+    border: 1px solid #cbd5e0;
+    padding: 8px;
+    border-radius: 6px;
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.1em;
     width: 40px;
     height: 40px;
     display: flex;
@@ -121,31 +123,32 @@ body {
 }
 
 .score-board {
-    background: rgba(0, 0, 0, 0.7);
+    background: #2d3748;
     color: white;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 8px 16px;
+    border-radius: 6px;
     font-weight: bold;
+    font-size: 0.9em;
 }
 
-/* Field & Goal */
+/* Field & Goal - lebih natural */
 .field {
     width: 100%;
     height: 400px;
-    background: linear-gradient(to bottom, #2e8b57, #228b22);
+    background: linear-gradient(to bottom, #2d5016, #3a6623);
     position: relative;
-    border-radius: 10px;
+    border-radius: 8px;
     margin-top: 80px;
     overflow: hidden;
 }
 
 .goal {
-    width: 400px;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 5px solid #ffffff;
+    width: 380px;
+    height: 180px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 4px solid #e2e8f0;
     position: absolute;
-    bottom: 50px;
+    bottom: 40px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -153,90 +156,254 @@ body {
     justify-content: center;
 }
 
-/* Improved Goalkeeper Animation */
+/* Goalkeeper yang lebih realistis */
 .goalkeeper {
-    width: 80px;
-    height: 120px;
-    background: #ff6b6b;
-    border: 3px solid #ff0000;
-    border-radius: 10px;
+    width: 70px;
+    height: 100px;
+    background: #4a5568;
+    border: 2px solid #2d3748;
+    border-radius: 8px;
     position: absolute;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     justify-content: center;
     color: white;
     font-weight: bold;
-    font-size: 0.8em;
+    font-size: 0.7em;
     text-align: center;
-    bottom: 40px;
-}
-
-.goalkeeper.standby {
+    bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
 }
 
+.goalkeeper.standby {
+    background: #4a5568;
+}
+
 .goalkeeper.left {
-    left: 25%;
+    left: 30%;
     transform: translateX(-50%);
-    background: #ff9999;
+    background: #718096;
 }
 
 .goalkeeper.right {
-    left: 75%;
+    left: 70%;
     transform: translateX(-50%);
-    background: #ff9999;
+    background: #718096;
 }
 
 .goalkeeper.center {
     left: 50%;
     transform: translateX(-50%);
-    background: #ff9999;
+    background: #718096;
 }
 
-.goalkeeper.standby::after { content: "GOALKEEPER\nREADY"; }
-.goalkeeper.left::after { content: "DIVE\nLEFT"; }
-.goalkeeper.right::after { content: "DIVE\nRIGHT"; }
-.goalkeeper.center::after { content: "STAY\nCENTER"; }
+.goalkeeper.standby::after { content: "READY"; }
+.goalkeeper.left::after { content: "LEFT"; }
+.goalkeeper.right::after { content: "RIGHT"; }
+.goalkeeper.center::after { content: "CENTER"; }
 
-/* Improved Ball Animation */
+/* Ball yang lebih smooth dengan animasi lengkap */
 .ball {
-    width: 32px;
-    height: 32px;
-    background: #ffffff;
-    border: 2px solid #000000;
+    width: 28px;
+    height: 28px;
+    background: white;
+    border: 2px solid #4a5568;
     border-radius: 50%;
     position: absolute;
-    bottom: 20px;
+    bottom: 15px;
     left: 50%;
     transform: translateX(-50%);
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 10;
 }
 
-/* Ball positions for different directions */
-.ball.kick-left {
-    left: 25%;
-    bottom: 150px;
-    transform: translateX(-50%);
+/* Animasi bola yang lebih realistis */
+.ball.moving-left {
+    animation: kickLeft 0.6s forwards;
 }
 
-.ball.kick-center {
-    left: 50%;
-    bottom: 180px;
-    transform: translateX(-50%);
+.ball.moving-center {
+    animation: kickCenter 0.6s forwards;
 }
 
-.ball.kick-right {
-    left: 75%;
-    bottom: 150px;
-    transform: translateX(-50%);
+.ball.moving-right {
+    animation: kickRight 0.6s forwards;
 }
 
-.ball.goal {
-    bottom: 220px;
-    opacity: 0;
+.ball.saved {
+    animation: saveAnimation 0.8s forwards;
+}
+
+/* NEW: Animasi untuk hasil post */
+.ball.post {
+    animation: postAnimation 0.7s forwards;
+}
+
+/* NEW: Animasi untuk bola melambung */
+.ball.over {
+    animation: overAnimation 0.8s forwards;
+}
+
+@keyframes kickLeft {
+    0% {
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    50% {
+        bottom: 100px;
+        left: 30%;
+        transform: translateX(-50%);
+    }
+    100% {
+        bottom: 140px;
+        left: 30%;
+        transform: translateX(-50%);
+        opacity: 1;
+    }
+}
+
+@keyframes kickLeft {
+    0% {
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    50% {
+        bottom: 100px;
+        left: 30%;
+        transform: translateX(-50%);
+    }
+    100% {
+        bottom: 140px;
+        left: 30%;
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes kickCenter {
+    0% {
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    50% {
+        bottom: 120px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    100% {
+        bottom: 160px;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 1;
+    }
+}
+
+@keyframes kickRight {
+    0% {
+        bottom: 15px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    50% {
+        bottom: 100px;
+        left: 70%;
+        transform: translateX(-50%);
+    }
+    100% {
+        bottom: 140px;
+        left: 70%;
+        transform: translateX(-50%);
+        opacity: 1;
+    }
+}
+
+@keyframes goalAnimation {
+    0% {
+        bottom: 140px;
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        bottom: 180px;
+        transform: translateX(-50%) scale(1.2);
+        opacity: 0.8;
+    }
+    100% {
+        bottom: 220px;
+        transform: translateX(-50%) scale(1.5);
+        opacity: 0;
+    }
+}
+
+@keyframes saveAnimation {
+    0% {
+        bottom: 140px;
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        bottom: 120px;
+        transform: translateX(-50%) scale(0.8);
+        opacity: 0.7;
+    }
+    100% {
+        bottom: 100px;
+        transform: translateX(-50%) scale(0.5);
+        opacity: 0;
+    }
+}
+
+@keyframes postAnimation {
+    0% {
+        bottom: 140px;
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    30% {
+        transform: translateX(calc(-50% - 20px)) scale(0.9);
+        opacity: 0.9;
+    }
+    60% {
+        transform: translateX(calc(-50% + 25px)) scale(0.8);
+        opacity: 0.7;
+    }
+    100% {
+        bottom: 100px;
+        transform: translateX(calc(-50% - 10px)) scale(0.6);
+        opacity: 0;
+    }
+}
+
+@keyframes overAnimation {
+    0% {
+        bottom: 140px;
+        transform: translateX(-50%) scale(1);
+        opacity: 1;
+    }
+    50% {
+        bottom: 200px;
+        transform: translateX(-50%) scale(0.9);
+        opacity: 0.8;
+    }
+    100% {
+        bottom: 250px;
+        transform: translateX(-50%) scale(0.7);
+        opacity: 0;
+    }
+}
+
+.kick-btn:disabled {
+    background: #a0aec0 !important;
+    cursor: not-allowed !important;
+    transform: none !important;
+}
+
+.kick-btn:disabled:hover {
+    background: #a0aec0 !important;
 }
 
 /* Controls */
@@ -246,36 +413,33 @@ body {
     left: 0;
     width: 100%;
     text-align: center;
-    color: black; /* Changed to black for better visibility on white background */
+    color: #333;
 }
 
 .controls p {
-    margin-bottom: 15px;
-    font-size: 1.2em;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 12px;
+    font-size: 1.1em;
 }
 
 .kick-buttons {
     display: flex;
     justify-content: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .kick-btn {
-    background: linear-gradient(45deg, #ff8c00, #ff4500);
+    background: #4a5568;
     color: white;
     border: none;
-    padding: 15px 25px;
-    font-size: 1.1em;
-    border-radius: 10px;
+    padding: 12px 20px;
+    font-size: 1em;
+    border-radius: 6px;
     cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s ease;
 }
 
 .kick-btn:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    background: #2d3748;
 }
 
 .kick-btn:active {
@@ -288,11 +452,11 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(45, 55, 72, 0.9);
     color: white;
-    padding: 20px 40px;
-    border-radius: 10px;
-    font-size: 2em;
+    padding: 15px 30px;
+    border-radius: 8px;
+    font-size: 1.8em;
     font-weight: bold;
     display: none;
     z-index: 100;
@@ -300,59 +464,86 @@ body {
 
 /* Final Results */
 .final-result {
-    font-size: 1.5em;
-    margin: 20px 0;
-    padding: 15px;
-    border-radius: 10px;
-    background: #f8f9fa;
+    font-size: 1.3em;
+    margin: 15px 0;
+    padding: 12px;
+    border-radius: 8px;
+    background: #f7fafc;
 }
 
 .score-breakdown {
-    margin: 20px 0;
+    margin: 15px 0;
     text-align: left;
+    max-height: 200px;
+    overflow-y: auto;
 }
 
 .kick-history-item {
-    padding: 8px;
-    margin: 5px 0;
-    border-radius: 5px;
-    background: #e9ecef;
+    padding: 6px;
+    margin: 4px 0;
+    border-radius: 4px;
+    background: #edf2f7;
+    font-size: 0.9em;
 }
 
 /* Difficulty Selector */
 .difficulty-selector {
-    margin: 20px 0;
+    margin: 15px 0;
 }
 
 .difficulty-selector label {
-    margin-right: 10px;
-    color: #333;
+    margin-right: 8px;
+    color: #4a5568;
 }
 
 .difficulty-selector select {
-    padding: 8px 15px;
-    border-radius: 5px;
-    border: 2px solid #1a2a6c;
-    font-size: 1em;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: 1px solid #cbd5e0;
+    font-size: 0.9em;
+    background: white;
 }
 
-/* Animations */
+/* Animasi hanya untuk gol */
 @keyframes goalCelebration {
-    0% { background-color: #ffd700; }
-    50% { background-color: #ff6b6b; }
-    100% { background-color: #ffd700; }
+    0% { background-color: #fefcbf; }
+    25% { background-color: #fed7d7; }
+    50% { background-color: #c6f6d5; }
+    75% { background-color: #bee3f8; }
+    100% { background-color: #fefcbf; }
 }
 
 .goal-celebration {
-    animation: goalCelebration 0.5s ease 3;
+    animation: goalCelebration 0.8s ease 2;
 }
 
 @keyframes saveReaction {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-    100% { transform: scale(1); }
+    0% { transform: translateX(-50%) scale(1); }
+    50% { transform: translateX(-50%) scale(1.05); }
+    100% { transform: translateX(-50%) scale(1); }
 }
 
 .save-reaction {
-    animation: saveReaction 0.3s ease;
+    animation: saveReaction 0.4s ease;
+}
+
+/* Responsif */
+@media (max-width: 600px) {
+    .card {
+        padding: 20px;
+    }
+    
+    .goal {
+        width: 300px;
+        height: 150px;
+    }
+    
+    .kick-buttons {
+        gap: 10px;
+    }
+    
+    .kick-btn {
+        padding: 10px 15px;
+        font-size: 0.9em;
+    }
 }
