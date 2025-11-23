@@ -1,0 +1,358 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: #ffffff; /* Changed to white background */
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#game-container {
+    width: 100%;
+    max-width: 800px;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid #ddd; /* Added border for visibility on white background */
+    border-radius: 10px;
+}
+
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Card Styling */
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 20px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 3px solid #ffd700;
+}
+
+.card h1 {
+    color: #1a2a6c;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card h2 {
+    color: #b21f1f;
+    margin-bottom: 20px;
+    font-size: 2em;
+}
+
+/* Button Styling */
+.btn-primary {
+    background: linear-gradient(45deg, #1a2a6c, #b21f1f);
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2em;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btn-secondary {
+    background: #666;
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1em;
+    border-radius: 50px;
+    cursor: pointer;
+    margin: 5px;
+    transition: all 0.3s ease;
+}
+
+.btn-icon {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1.2em;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Game Screen */
+.game-header {
+    position: absolute;
+    top: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.score-board {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-weight: bold;
+}
+
+/* Field & Goal */
+.field {
+    width: 100%;
+    height: 400px;
+    background: linear-gradient(to bottom, #2e8b57, #228b22);
+    position: relative;
+    border-radius: 10px;
+    margin-top: 80px;
+    overflow: hidden;
+}
+
+.goal {
+    width: 400px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 5px solid #ffffff;
+    position: absolute;
+    bottom: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Improved Goalkeeper Animation */
+.goalkeeper {
+    width: 80px;
+    height: 120px;
+    background: #ff6b6b;
+    border: 3px solid #ff0000;
+    border-radius: 10px;
+    position: absolute;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 0.8em;
+    text-align: center;
+    bottom: 40px;
+}
+
+.goalkeeper.standby {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.goalkeeper.left {
+    left: 25%;
+    transform: translateX(-50%);
+    background: #ff9999;
+}
+
+.goalkeeper.right {
+    left: 75%;
+    transform: translateX(-50%);
+    background: #ff9999;
+}
+
+.goalkeeper.center {
+    left: 50%;
+    transform: translateX(-50%);
+    background: #ff9999;
+}
+
+.goalkeeper.standby::after { content: "GOALKEEPER\nREADY"; }
+.goalkeeper.left::after { content: "DIVE\nLEFT"; }
+.goalkeeper.right::after { content: "DIVE\nRIGHT"; }
+.goalkeeper.center::after { content: "STAY\nCENTER"; }
+
+/* Improved Ball Animation */
+.ball {
+    width: 32px;
+    height: 32px;
+    background: #ffffff;
+    border: 2px solid #000000;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 10;
+}
+
+/* Ball positions for different directions */
+.ball.kick-left {
+    left: 25%;
+    bottom: 150px;
+    transform: translateX(-50%);
+}
+
+.ball.kick-center {
+    left: 50%;
+    bottom: 180px;
+    transform: translateX(-50%);
+}
+
+.ball.kick-right {
+    left: 75%;
+    bottom: 150px;
+    transform: translateX(-50%);
+}
+
+.ball.goal {
+    bottom: 220px;
+    opacity: 0;
+}
+
+/* Controls */
+.controls {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    color: black; /* Changed to black for better visibility on white background */
+}
+
+.controls p {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.kick-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.kick-btn {
+    background: linear-gradient(45deg, #ff8c00, #ff4500);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    font-size: 1.1em;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.kick-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+.kick-btn:active {
+    transform: translateY(1px);
+}
+
+/* Result Message */
+.result-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 10px;
+    font-size: 2em;
+    font-weight: bold;
+    display: none;
+    z-index: 100;
+}
+
+/* Final Results */
+.final-result {
+    font-size: 1.5em;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 10px;
+    background: #f8f9fa;
+}
+
+.score-breakdown {
+    margin: 20px 0;
+    text-align: left;
+}
+
+.kick-history-item {
+    padding: 8px;
+    margin: 5px 0;
+    border-radius: 5px;
+    background: #e9ecef;
+}
+
+/* Difficulty Selector */
+.difficulty-selector {
+    margin: 20px 0;
+}
+
+.difficulty-selector label {
+    margin-right: 10px;
+    color: #333;
+}
+
+.difficulty-selector select {
+    padding: 8px 15px;
+    border-radius: 5px;
+    border: 2px solid #1a2a6c;
+    font-size: 1em;
+}
+
+/* Animations */
+@keyframes goalCelebration {
+    0% { background-color: #ffd700; }
+    50% { background-color: #ff6b6b; }
+    100% { background-color: #ffd700; }
+}
+
+.goal-celebration {
+    animation: goalCelebration 0.5s ease 3;
+}
+
+@keyframes saveReaction {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.save-reaction {
+    animation: saveReaction 0.3s ease;
+}

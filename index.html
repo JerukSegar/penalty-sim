@@ -8,22 +8,61 @@
 </head>
 <body>
     <div id="game-container">
-        <!-- Layar Start -->
-        <div id="start-screen" class="screen">
-            <h1>Penalty Shootout</h1>
-            <button id="start-btn">Mulai Game</button>
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="card">
+                <h1>PENALTY SHOOTOUT</h1>
+                <p>Defeat the keeper</p>
+                <button id="start-btn" class="btn-primary">PLAY</button>
+                <div class="difficulty-selector">
+                    <label>Difficulty:</label>
+                    <select id="difficulty-select">
+                        <option value="easy">easy</option>
+                        <option value="normal" selected>normal</option>
+                        <option value="hard">hard</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
-        <!-- Layar Permainan -->
-        <div id="game-screen" class="screen hidden">
-            <!-- Di sini nanti: gawang, kiper, bola, tombol arah, skor -->
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="score-board">
+                    <span>Score: <span id="player-score">0</span> - <span id="computer-score">0</span></span>
+                    <span>Kicks remaining: <span id="kicks-remaining">5</span></span>
+                </div>
+                <button id="mute-btn" class="btn-icon">🔊</button>
+            </div>
+
+            <div class="field">
+                <div id="goal" class="goal">
+                    <div id="goalkeeper" class="goalkeeper standby"></div>
+                    <div id="ball" class="ball"></div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <p>Where to kick:</p>
+                <div class="kick-buttons">
+                    <button class="kick-btn" data-direction="left">LEFT</button>
+                    <button class="kick-btn" data-direction="center">MID</button>
+                    <button class="kick-btn" data-direction="right">RIGHT</button>
+                </div>
+            </div>
+
+            <div id="result-message" class="result-message"></div>
         </div>
 
-        <!-- Layar Hasil -->
-        <div id="result-screen" class="screen hidden">
-            <h2>Hasil Akhir</h2>
-            <p id="final-score"></p>
-            <button id="restart-btn">Main Lagi</button>
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen">
+            <div class="card">
+                <h2>FINAL RESULT</h2>
+                <div id="final-result" class="final-result"></div>
+                <div id="score-breakdown" class="score-breakdown"></div>
+                <button id="restart-btn" class="btn-primary">PLAY AGAIN</button>
+                <button id="home-btn" class="btn-secondary">MAIN MENU</button>
+            </div>
         </div>
     </div>
 
