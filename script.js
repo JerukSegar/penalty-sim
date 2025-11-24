@@ -1,10 +1,45 @@
 const GAME_STATES = {
     START: 'start',
+    PLAYER_SELECT: 'player_select',
     KICK_PREPARATION: 'kick_prep',
     KICK_SELECTION: 'kick_selection',
     ANIMATION: 'animation',
     RESULT: 'result',
     GAME_OVER: 'game_over'
+};
+
+// Data pemain
+const players = {
+    1: {
+        id: 1,
+        name: "Antony",
+        number: 7,
+        team: "Brazil",
+        power: 95,
+        accuracy: 92,
+        experience: 98,
+        description: "The complete striker with powerful shots and incredible experience in pressure situations."
+    },
+    2: {
+        id: 2,
+        name: "Mykhailo Mudryk",
+        number: 10,
+        team: "Ukraine",
+        power: 88,
+        accuracy: 98,
+        experience: 96,
+        description: "Master of precision with unmatched ball control and placement accuracy."
+    },
+    3: {
+        id: 3,
+        name: "Darwin Núñez",
+        number: 9,
+        team: "Uruguay",
+        power: 97,
+        accuracy: 90,
+        experience: 85,
+        description: "Young powerhouse with devastating shot power and clinical finishing."
+    }
 };
 
 // Game Data
@@ -22,18 +57,21 @@ const gameData = {
     settings: {
         sound: true,
         difficulty: 'normal'
-    }
+    },
+    selectedPlayer: null
 };
 
 // DOM Elements
 const screens = {
     start: document.getElementById('start-screen'),
+    playerSelect: document.getElementById('player-select-screen'),
     game: document.getElementById('game-screen'),
     result: document.getElementById('result-screen')
 };
 
 const elements = {
-    startBtn: document.getElementById('start-btn'),
+    playBtn: document.getElementById('play-btn'),
+    backBtn: document.getElementById('back-btn'),
     restartBtn: document.getElementById('restart-btn'),
     homeBtn: document.getElementById('home-btn'),
     muteBtn: document.getElementById('mute-btn'),
@@ -46,7 +84,9 @@ const elements = {
     resultMessage: document.getElementById('result-message'),
     finalResult: document.getElementById('final-result'),
     scoreBreakdown: document.getElementById('score-breakdown'),
-    kickButtons: document.querySelectorAll('.kick-btn')
+    kickButtons: document.querySelectorAll('.kick-btn'),
+    playerCards: document.querySelectorAll('.player-card'),
+    selectPlayerBtns: document.querySelectorAll('.select-player-btn')
 };
 
 // Initialize Game
@@ -62,6 +102,8 @@ function initGame() {
     resetPositions();
     updateUI();
     enableKickButtons(true);
+    
+    // Reset to start screen
     showScreen('start');
 }
 
@@ -104,56 +146,49 @@ function updateUI() {
     elements.muteBtn.textContent = gameData.settings.sound ? '🔊' : '🔇';
 }
 
-// AI Decision Making - IMPROVED: mengurangi kemungkinan center
+// AI Decision Making
 function getAIDirection() {
     const random = Math.random();
     
     switch(gameData.settings.difficulty) {
         case 'easy':
-            // easy: 25% left, 25% center, 50% right
             return random < 0.25 ? 'left' : random < 0.5 ? 'center' : 'right';
         case 'normal':
-            // normal: 35% left, 30% center, 35% right
             return random < 0.35 ? 'left' : random < 0.65 ? 'center' : 'right';
         case 'hard':
-            // hard: 40% left, 20% center, 40% right + pattern analysis
             return analyzePlayerPattern();
     }
 }
 
-// Analyze player pattern for hard difficulty - IMPROVED
+// Analyze player pattern for hard difficulty
 function analyzePlayerPattern() {
     const history = gameData.kicks.history;
     if (history.length === 0) {
         return Math.random() < 0.4 ? 'left' : Math.random() < 0.6 ? 'center' : 'right';
     }
     
-    // Count player's most common choice
     const directionCount = { left: 0, center: 0, right: 0 };
     history.forEach(kick => {
         directionCount[kick.playerChoice]++;
     });
     
-    // Find most common player choice
     let mostCommon = 'left';
     if (directionCount.center > directionCount[mostCommon]) mostCommon = 'center';
     if (directionCount.right > directionCount[mostCommon]) mostCommon = 'right';
     
-    // 60% chance to choose the direction that counters player's most common choice
     if (Math.random() < 0.6) {
         return mostCommon;
     }
     
-    // Otherwise random with bias away from center
     const rand = Math.random();
     return rand < 0.45 ? 'left' : rand < 0.55 ? 'center' : 'right';
 }
 
-// NEW: Calculate additional penalty outcomes
+// Calculate penalty outcomes
 function calculatePenaltyResult(playerChoice, computerChoice) {
     const random = Math.random();
     
-    // 10% chance of hitting post (regardless of goalkeeper position)
+    // 10% chance of hitting post
     if (random < 0.1) {
         return 'post';
     }
@@ -167,7 +202,7 @@ function calculatePenaltyResult(playerChoice, computerChoice) {
     return playerChoice === computerChoice ? 'saved' : 'goal';
 }
 
-// Show result message - UPDATED dengan hasil baru
+// Show result message
 function showResultMessage(result, playerChoice, computerChoice) {
     const messages = {
         goal: 'GOAL! ⚽',
@@ -187,51 +222,41 @@ function hideResultMessage() {
     elements.resultMessage.style.display = 'none';
 }
 
-// Animate kick sequence - IMPROVED dengan animasi baru
+// Animate kick sequence
 async function animateKick(playerChoice, computerChoice, result) {
-    // Disable kick buttons selama animasi
     enableKickButtons(false);
-    
-    // Reset positions
     resetPositions();
     
-    // Small delay before animation starts
     await new Promise(resolve => setTimeout(resolve, 300));
     
-    // Animate goalkeeper dive
     elements.goalkeeper.className = `goalkeeper ${computerChoice}`;
     
-    // Delay sebelum bola bergerak
     await new Promise(resolve => setTimeout(resolve, 200));
     
-    // Animate ball movement berdasarkan arah tendangan
     elements.ball.classList.add(`moving-${playerChoice}`);
     
-    // Tunggu animasi bola selesai
     await new Promise(resolve => setTimeout(resolve, 600));
     
-    // Animasi berdasarkan hasil
     if (result === 'goal') {
-        // NEW: Animasi goal - bola memudar dan muncul kembali
         elements.ball.style.opacity = '0';
         await new Promise(resolve => setTimeout(resolve, 500));
     } else if (result === 'saved') {
-        elements.ball.classList.add('saved');
+        elements.ball.style.opacity = '0';
         await new Promise(resolve => setTimeout(resolve, 500));
     } else if (result === 'post') {
-        // NEW: Animasi bola memantul dari tiang
         elements.ball.classList.add('post');
-        await new Promise(resolve => setTimeout(resolve, 700));
+        await new Promise(resolve => setTimeout(resolve, 400));
+        elements.ball.style.opacity = '0';
+        await new Promise(resolve => setTimeout(resolve, 300));
     } else if (result === 'over') {
-        // NEW: Animasi bola melambung tinggi
         elements.ball.classList.add('over');
-        await new Promise(resolve => setTimeout(resolve, 800));
+        await new Promise(resolve => setTimeout(resolve, 600));
+        elements.ball.style.opacity = '0';
+        await new Promise(resolve => setTimeout(resolve, 200));
     }
     
-    // Show result
     showResultMessage(result, playerChoice, computerChoice);
     
-    // Add celebration effects
     if (result === 'goal') {
         document.body.classList.add('goal-celebration');
         playSound('goal');
@@ -239,38 +264,31 @@ async function animateKick(playerChoice, computerChoice, result) {
         elements.goalkeeper.classList.add('save-reaction');
         playSound('save');
     } else {
-        playSound('kick'); // Sound untuk post dan over
+        playSound('kick');
     }
     
-    // Tunggu sebentar untuk melihat hasil
     await new Promise(resolve => setTimeout(resolve, 1200));
     
-    // Reset untuk tendangan berikutnya
     resetPositions();
     elements.goalkeeper.className = 'goalkeeper standby';
     
-    // Tunggu sedikit lagi kemudian reset semua
     await new Promise(resolve => setTimeout(resolve, 500));
     
-    // Clean up
     hideResultMessage();
     document.body.classList.remove('goal-celebration');
     elements.goalkeeper.classList.remove('save-reaction');
     
-    // Enable kick buttons kembali
     enableKickButtons(true);
 }
 
-// Process kick result - UPDATED dengan hasil baru
+// Process kick result
 function processKickResult(playerChoice, computerChoice, result) {
-    // Update score
     if (result === 'goal') {
         gameData.score.player++;
     } else if (result === 'saved' || result === 'post' || result === 'over') {
         gameData.score.computer++;
     }
     
-    // Record history
     gameData.kicks.history.push({
         playerChoice,
         computerChoice,
@@ -280,7 +298,6 @@ function processKickResult(playerChoice, computerChoice, result) {
     gameData.kicks.remaining--;
     updateUI();
     
-    // Check if game should continue
     if (gameData.kicks.remaining > 0) {
         setTimeout(() => {
             gameData.currentState = GAME_STATES.KICK_PREPARATION;
@@ -290,7 +307,7 @@ function processKickResult(playerChoice, computerChoice, result) {
     }
 }
 
-// End game and show results - UPDATED dengan hasil baru
+// End game and show results
 function endGame() {
     const playerScore = gameData.score.player;
     const computerScore = gameData.score.computer;
@@ -311,7 +328,6 @@ function endGame() {
         </div>
     `;
     
-    // Show kick history dengan hasil baru
     let historyHTML = '<h3>Kick History:</h3>';
     gameData.kicks.history.forEach((kick, index) => {
         let resultIcon, resultColor, resultText;
@@ -367,19 +383,117 @@ function playSound(soundName) {
     console.log(soundMessages[soundName] || `🔊 Playing: ${soundName}`);
 }
 
-// Event Listeners
-elements.startBtn.addEventListener('click', () => {
-    initGame();
+// Initialize player selection
+function initPlayerSelection() {
+    elements.playerCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.classList.contains('select-player-btn')) return;
+            
+            const playerId = card.dataset.player;
+            selectPlayer(playerId);
+        });
+    });
+    
+    elements.selectPlayerBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = e.target.closest('.player-card');
+            const playerId = card.dataset.player;
+            selectPlayer(playerId);
+            startGameWithPlayer();
+        });
+    });
+}
+
+// Tambahkan di fungsi initPlayerSelection() atau tempat yang sesuai
+function initPlayerSelection() {
+    elements.playerCards.forEach(card => {
+        card.addEventListener('click', (e) => {
+            if (e.target.classList.contains('select-player-btn')) return;
+            
+            const playerId = card.dataset.player;
+            selectPlayer(playerId);
+        });
+    });
+    
+    elements.selectPlayerBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = e.target.closest('.player-card');
+            const playerId = card.dataset.player;
+            selectPlayer(playerId);
+            
+            // Scroll ke card yang dipilih untuk mobile
+            if (window.innerWidth <= 600) {
+                card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+            
+            startGameWithPlayer();
+        });
+    });
+    
+    // Handle scroll behavior untuk container
+    const playerSelectCard = document.querySelector('#player-select-screen .card');
+    if (playerSelectCard) {
+        playerSelectCard.addEventListener('scroll', function() {
+            // Memastikan tombol back tetap terlihat
+            const backBtn = document.getElementById('back-btn');
+            const scrollBottom = this.scrollHeight - this.scrollTop - this.clientHeight;
+            
+            if (scrollBottom < 60) { // Jika mendekati bagian bawah
+                backBtn.style.position = 'relative';
+            } else {
+                backBtn.style.position = 'sticky';
+            }
+        });
+    }
+}
+
+// Select player function
+function selectPlayer(playerId) {
+    elements.playerCards.forEach(card => {
+        card.classList.remove('selected');
+    });
+    
+    const selectedCard = document.querySelector(`.player-card[data-player="${playerId}"]`);
+    selectedCard.classList.add('selected');
+    
+    gameData.selectedPlayer = players[playerId];
+    
+    console.log(`Selected player: ${gameData.selectedPlayer.name}`);
+}
+
+// Start game dengan pemain yang dipilih
+function startGameWithPlayer() {
+    if (!gameData.selectedPlayer) {
+        alert('Please select a player first!');
+        return;
+    }
+    
+    // Reset game state untuk memulai permainan baru
+    gameData.score.player = 0;
+    gameData.score.computer = 0;
+    gameData.kicks.remaining = gameData.kicks.total;
+    gameData.kicks.history = [];
+    
+    resetPositions();
+    updateUI();
+    enableKickButtons(true);
+    
     showScreen('game');
     gameData.currentState = GAME_STATES.KICK_PREPARATION;
     playSound('whistle');
+}
+
+// Event Listeners
+elements.playBtn.addEventListener('click', () => {
+    showScreen('playerSelect');
+});
+
+elements.backBtn.addEventListener('click', () => {
+    showScreen('start');
 });
 
 elements.restartBtn.addEventListener('click', () => {
-    initGame();
-    showScreen('game');
-    gameData.currentState = GAME_STATES.KICK_PREPARATION;
-    playSound('whistle');
+    startGameWithPlayer();
 });
 
 elements.homeBtn.addEventListener('click', () => {
@@ -391,7 +505,7 @@ elements.muteBtn.addEventListener('click', () => {
     updateUI();
 });
 
-// Kick button handlers - UPDATED dengan state management
+// Kick button handlers
 elements.kickButtons.forEach(button => {
     button.addEventListener('click', async (e) => {
         if (gameData.currentState !== GAME_STATES.KICK_PREPARATION) return;
@@ -402,17 +516,18 @@ elements.kickButtons.forEach(button => {
         
         gameData.currentState = GAME_STATES.ANIMATION;
         
-        // Play kick sound
         playSound('kick');
         
-        // Animate and process result
         await animateKick(playerChoice, computerChoice, result);
         processKickResult(playerChoice, computerChoice, result);
     });
 });
 
 // Initialize game on load
-document.addEventListener('DOMContentLoaded', initGame);
+document.addEventListener('DOMContentLoaded', () => {
+    initGame();
+    initPlayerSelection();
+});
 
 // Export for debugging
 window.gameData = gameData;

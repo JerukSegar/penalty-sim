@@ -8,20 +8,73 @@
 </head>
 <body>
     <div id="game-container">
-        <!-- Start Screen -->
+        <!-- Start Screen - Pilih Difficulty -->
         <div id="start-screen" class="screen active">
             <div class="card">
                 <h1>PENALTY SHOOTOUT</h1>
                 <p>Defeat the keeper</p>
-                <button id="start-btn" class="btn-primary">PLAY</button>
+                
                 <div class="difficulty-selector">
-                    <label>Difficulty:</label>
+                    <label>Select Difficulty:</label>
                     <select id="difficulty-select">
-                        <option value="easy">easy</option>
-                        <option value="normal" selected>normal</option>
-                        <option value="hard">hard</option>
+                        <option value="easy">Easy</option>
+                        <option value="normal" selected>Normal</option>
+                        <option value="hard">Hard</option>
                     </select>
                 </div>
+                
+                <button id="play-btn" class="btn-primary">PLAY</button>
+            </div>
+        </div>
+
+        <!-- Player Selection Screen -->
+        <div id="player-select-screen" class="screen">
+            <div class="card">
+                <h2>CHOOSE YOUR PLAYER</h2>
+                <p>Select your striker for the penalty shootout</p>
+                
+                <div class="player-cards">
+                    <div class="player-card" data-player="1">
+                        <div class="jersey-back">
+                            <div class="player-number">7</div>
+                            <div class="player-name">Antony</div>
+                        </div>
+                        <div class="player-info">
+                            <h4>Antony</h4>
+                            <p>Power: 95<br>Accuracy: 92<br>Experience: 98</p>
+                            <p class="player-description">GOAT hijau siap mendominasi La Liga</p>
+                            <button class="select-player-btn">SELECT PLAYER</button>
+                        </div>
+                    </div>
+                    
+                    <div class="player-card" data-player="2">
+                        <div class="jersey-back">
+                            <div class="player-number">10</div>
+                            <div class="player-name">Mudryk</div>
+                        </div>
+                        <div class="player-info">
+                            <h4>Mykhailo Mudryk</h4>
+                            <p>Power: 88<br>Accuracy: 98<br>Experience: 96</p>
+                            <p class="player-description">Ya tuhan jika Hari ini Aku kehilangan harapan tolong ingatkan Aku bahwa rencanamu lebih baik dari impianku.</p>
+                            <button class="select-player-btn">SELECT PLAYER</button>
+                        </div>
+                    </div>
+                    
+                    <div class="player-card" data-player="3">
+                        <div class="jersey-back">
+                            <div class="player-number">9</div>
+                            <div class="player-name">Darwinzy</div>
+                        </div>
+                        <div class="player-info">
+                            <h4>Darwin Núñez</h4>
+                            <p>Power: 97<br>Accuracy: 90<br>Experience: 85</p>
+                            <p class="player-description">Darwinzy uhhhhh.</p>
+                            <button class="select-player-btn">SELECT PLAYER</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button id="back-btn" class="btn-secondary">BACK</button>
             </div>
         </div>
 
