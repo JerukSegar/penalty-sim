@@ -24,121 +24,90 @@
                 </div>
                 
                 <button id="play-btn" class="btn-primary">PLAY</button>
+
             </div>
         </div>
 
         <!-- Player Selection Screen -->
-<div id="player-select-screen" class="screen">
-    <div class="card">
-        <h2>CHOOSE YOUR PLAYER</h2>
-        <p>Select your striker for the penalty shootout</p>
-        
-        <div class="player-cards">
-            <div class="player-card" data-player="1">
-                <div class="jersey-back">
-                    <div class="player-number">7</div>
-                    <div class="player-name">Antony</div>
-                </div>
-                <div class="player-info">
-                    <h4>Antony</h4>
-                    <div class="player-stats">
-                        Position: Right wing<br>Power: 95<br>Accuracy: 92<br>GOAT: 100<br>Weak Foot: ★★★★☆
+        <div id="player-select-screen" class="screen">
+            <div class="card">
+                <h2>CHOOSE YOUR PLAYER</h2>
+                <p>Select your striker for the penalty shootout</p>
+                
+                <div class="player-cards">
+                    <div class="player-card" data-player="1">
+                        <div class="jersey-back">
+                            <div class="player-number">7</div>
+                            <div class="player-name">Antony</div>
+                        </div>
+                        <div class="player-info">
+                            <h4>Antony</h4>
+                            <div class="player-stats">
+                                Position: Right wing<br>Power: 95<br>Accuracy: 92<br>GOAT: 100<br>Weak Foot: ★★★★☆
+                            </div>
+                            <p class="player-description">GOAT hijau siap mendominasi La Liga</p>
+                            <button class="select-player-btn">SELECT PLAYER</button>
+                        </div>
                     </div>
-                    <p class="player-description">GOAT hijau siap mendominasi La Liga</p>
-                    <button class="select-player-btn">SELECT PLAYER</button>
-                </div>
-            </div>
-            
-            <div class="player-card" data-player="2">
-                <div class="jersey-back">
-                    <div class="player-number">10</div>
-                    <div class="player-name">Mudryk</div>
-                </div>
-                <div class="player-info">
-                    <h4>Mykhailo Mudryk</h4>
-                    <div class="player-stats">
-                        Position: Left wing<br>Power: 89<br>Accuracy: 98<br>GOAT: 100<br>Weak Foot: ★★★★★
+                    
+                    <div class="player-card" data-player="2">
+                        <div class="jersey-back">
+                            <div class="player-number">10</div>
+                            <div class="player-name">Mudryk</div>
+                        </div>
+                        <div class="player-info">
+                            <h4>Mykhailo Mudryk</h4>
+                            <div class="player-stats">
+                                Position: Left wing<br>Power: 89<br>Accuracy: 98<br>GOAT: 100<br>Weak Foot: ★★★★★
+                            </div>
+                            <p class="player-description">Ya tuhan jika Hari ini Aku kehilangan harapan tolong ingatkan Aku bahwa rencanamu lebih baik dari impianku. ~ Mudryk 2024</p>
+                            <button class="select-player-btn">SELECT PLAYER</button>
+                        </div>
                     </div>
-                    <p class="player-description">Ya tuhan jika Hari ini Aku kehilangan harapan tolong ingatkan Aku bahwa rencanamu lebih baik dari impianku. ~ Mudryk 2024</p>
-                    <button class="select-player-btn">SELECT PLAYER</button>
-                </div>
-            </div>
-            
-            <div class="player-card" data-player="3">
-                <div class="jersey-back">
-                    <div class="player-number">9</div>
-                    <div class="player-name">Darwinzy</div>
-                </div>
-                <div class="player-info">
-                    <h4>Darwin Núñez</h4>
-                    <div class="player-stats">
-                        Position: Striker<br>Power: 97<br>Accuracy: 90<br>GOAT: 100<br>Weak Foot: ★★★☆☆
+                    
+                    <div class="player-card" data-player="3">
+                        <div class="jersey-back">
+                            <div class="player-number">9</div>
+                            <div class="player-name">Darwinzy</div>
+                        </div>
+                        <div class="player-info">
+                            <h4>Darwin Núñez</h4>
+                            <div class="player-stats">
+                                Position: Striker<br>Power: 97<br>Accuracy: 90<br>GOAT: 100<br>Weak Foot: ★★★☆☆
+                            </div>
+                            <p class="player-description">Darwinzy hanya mau memproduksi gol indah.</p>
+                            <button class="select-player-btn">SELECT PLAYER</button>
+                        </div>
                     </div>
-                    <p class="player-description">Darwinzy hanya mau memproduksi gol indah.</p>
-                    <button class="select-player-btn">SELECT PLAYER</button>
                 </div>
-            </div>
-        </div>
-        
-        <button id="back-btn" class="btn-secondary">BACK</button>
-    </div>
-</div>
-
-<!-- Goalkeeper Selection Screen -->
-<div id="goalkeeper-select-screen" class="screen">
-    <div class="card">
-        <h2>CHOOSE YOUR GOALKEEPER</h2>
-        <p>Select your goalkeeper for the penalty shootout</p>
-        
-        <div class="player-cards">
-            <div class="player-card" data-goalkeeper="1">
-                <div class="jersey-back">
-                    <div class="player-number">1</div>
-                    <div class="player-name">Keeper</div>
-                </div>
-                <div class="player-info">
-                    <h4>Goalkeeper</h4>
-                    <div class="player-stats">
-                        Position: Goalkeeper<br>Reflex: 85<br>Positioning: 88<br>Experience: 90
-                    </div>
-                    <p class="player-description">Reliable goalkeeper ready to make crucial saves</p>
-                    <button class="select-player-btn">SELECT GOALKEEPER</button>
-                </div>
+                
+                <button id="back-btn" class="btn-secondary">BACK</button>
             </div>
         </div>
-        
-        <button id="back-to-player-btn" class="btn-secondary">BACK</button>
-    </div>
-</div>
 
-<!-- Game Screen -->
-<div id="game-screen" class="screen">
-    <div class="game-header">
-        <div class="score-board">
-            <span>Score: <span id="player-score">0</span> - <span id="computer-score">0</span></span>
-            <span>Kicks remaining: <span id="kicks-remaining">5</span></span>
-        </div>
-        <button id="mute-btn" class="btn-icon">🔊</button>
-    </div>
+        <!-- Game Screen -->
+        <div id="game-screen" class="screen">
+            <div class="game-header">
+                <div class="score-board">
+                    <span>Goal: <span id="player-score">0</span></span>
+                </div>
+                <button id="mute-btn" class="btn-icon">🔊</button>
+            </div>
 
-    <div class="field">
-        <div id="goal" class="goal">
-            <div id="goalkeeper" class="goalkeeper standby"></div>
-            <div id="ball" class="ball"></div>
-        </div>
-    </div>
+            <div class="field">
+                <div id="goal" class="goal">
+                    <div id="goalkeeper" class="goalkeeper standby"></div>
+                    <div id="ball" class="ball"></div>
+                </div>
+            </div>
 
-    <div class="controls">
-        <!-- HAPUS TEKS "Where to kick:" -->
-        <div class="kick-buttons">
-            <button class="kick-btn" data-direction="left">LEFT</button>
-            <button class="kick-btn" data-direction="center">MID</button>
-            <button class="kick-btn" data-direction="right">RIGHT</button>
-        </div>
-    </div>
-
-    <div id="result-message" class="result-message"></div>
-</div>
+            <div class="controls">
+                <div class="kick-buttons">
+                    <button class="kick-btn" data-direction="left">LEFT</button>
+                    <button class="kick-btn" data-direction="center">MID</button>
+                    <button class="kick-btn" data-direction="right">RIGHT</button>
+                </div>
+            </div>
 
             <div id="result-message" class="result-message"></div>
         </div>
